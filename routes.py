@@ -1,14 +1,17 @@
 import os
 import sqlite3
-from flask import Flask, g, render_template, request
-
-DATABASE = 'database/contacts.db'
+from flask import Flask, g, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+app.config.update(dict(
+    DATABASE=os.path.join(app.root_path, 'database', 'contatcs.db'),
+    SECRET_KEY='secret'
+))
+
 def connect_db():
-    db = sqlite3.connect(DATABASE)
+    db = sqlite3.connect(app.config['DATABASE'])
     return db
 
 def get_db():
@@ -29,7 +32,34 @@ def close_db():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Se estiver logado, vai para o perfil
+    if session.get('logged_in'):
+        return 'You are logged in'
+    # Senão, vai para a página de cadastro
+    return render_template('signup.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    # Post cadastra os dados dos campos no bd
+    if request.method == 'POST':
+        return 'You typed %s, %s, %s' %(request.form['email'], request.form['username'], request.form['password'])
+    # Get retorna a página de cadastro
+    return render_template('signup.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Post compara os dados dos campos com o bd, se bater redireciona para o perfil
+    if request.method == 'POST':
+        session['logged_in'] = True
+        return redirect(url_for('index'))
+    # Get retorna a página de login
+    return render_template('login.html')
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    # Faz logout e redireciona para o login
+    session.pop('logged_in', None)
+    return redirect(url_for('login'))
 
 @app.route('/<username>', methods=['GET', 'POST'])
 def user(username):
