@@ -1,16 +1,5 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Log In</title>
-  <meta name="description" content="Webapp for contact exchanging">
-  <meta name="author" content="Luiz Lima, Rodrigo Rufino">
-</head>
-
-<body>
+{% extends "layout.html" %}
+{% block body %}
     <form method="POST">
         <input type="text" name="username" placeholder="Nome de usuário" required><br>
         <input type="password" name="password" placeholder="Senha" required><br>
@@ -18,5 +7,4 @@
         <input type="submit" name="submit" value="Entrar">
     </form>
     <p>Não tem uma conta? <a href="/signup">Cadastre-se</a></p>
-</body>
-</html>
+{% endblock %}

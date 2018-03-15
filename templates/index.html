@@ -1,17 +1,5 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>AC318-T1G1</title>
-  <meta name="description" content="Webapp for contact exchanging">
-  <meta name="author" content="Luiz Lima, Rodrigo Rufino">
-</head>
-
-<body>
-    <h1>Hello, {{ session.get('user') }}</h1>
-    <a href="/logout">Logout</a>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block body %}
+  <h1>Hello, {{ session.get('user') }}</h1>
+  <a href="/logout">Logout</a>
+{% endblock %}
