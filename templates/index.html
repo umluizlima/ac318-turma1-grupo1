@@ -11,6 +11,7 @@
 </head>
 
 <body>
-    <h1>Hello, mundão velho sem porteira</h1>
+    <h1>Hello, {{ session.get('user') }}</h1>
+    <a href="/logout">Logout</a>
 </body>
 </html>

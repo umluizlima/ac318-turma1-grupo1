@@ -5,6 +5,15 @@ create table if not exists users (
   constraint username_unique unique (username)
 );
 
+create table if not exists names (
+    userId integer not null,
+    firstname text not null,
+    lastname text not null,
+    primary key (userId),
+    foreign key (userId) references users (id)
+        on delete cascade on update no action
+);
+
 create table if not exists emails (
     id integer primary key autoincrement,
     userId integer not null,    

@@ -12,9 +12,11 @@
 
 <body>
     <form method="POST">
-        <input type="email" name="email" placeholder="email" required><br>
-        <input type="password" name="password" placeholder="password" required><br>
-        <input type="submit" name="submit" placeholder="Log In">
+        <input type="text" name="username" placeholder="Nome de usuário" required><br>
+        <input type="password" name="password" placeholder="Senha" required><br>
+        {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
+        <input type="submit" name="submit" value="Entrar">
     </form>
+    <p>Não tem uma conta? <a href="/signup">Cadastre-se</a></p>
 </body>
 </html>
