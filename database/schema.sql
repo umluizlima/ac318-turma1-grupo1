@@ -15,17 +15,17 @@ create table if not exists names (
 );
 
 create table if not exists emails (
-    id integer primary key autoincrement,
     userId integer not null,    
     tag text not null,
     email text not null,
     foreign key (userId) references users (id)
+        on delete cascade on update no action
 );
 
 create table if not exists phones (
-    id integer primary key autoincrement,
     userId integer not null,
     tag text not null,
     phone text not null,
     foreign key (userId) references users (id)
+        on delete cascade on update no action
 );

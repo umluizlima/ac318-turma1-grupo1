@@ -38,18 +38,30 @@ def index():
     if session.get('logged_in'):
         return render_template('index.html')
     # Senão, vai para a página de cadastro
-    return render_template('signup.html')
+    return redirect(url_for('signup'))
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     # Post cadastra os dados dos campos no bd
+    error = None
     if request.method == 'POST':
         db = get_db()
-        cur = db.execute('insert into users (username, password) values (?, ?)', [request.form['username'], request.form['password']])
-        db.commit()
-        return 'Usuario cadastrado %s, %s' %(request.form['username'], request.form['password'])
+        user = request.form
+        print(user)
+        if len(db.execute('select username from users where username like (?)', [user['username']]).fetchall()) == 0:
+            db.execute('insert into users (username, password) \
+                                    values (?, ?)', [user['username'], user['password']])
+            userId = db.execute('select id from users where username like (?)', [user['username']]).fetchall()[0][0]
+            db.execute('insert into names (userId, firstname, lastname) \
+                                    values (?, ?, ?)', [userId, user['firstname'], user['lastname']])
+            db.execute('insert into emails (userId, tag, email) \
+                                    values (?, ?, ?)', [userId, 'Main', user['email']])
+            db.commit()
+            return redirect(url_for('login'))
+        else:
+            error = 'Nome de usuário já existe.'
     # Get retorna a página de cadastro
-    return render_template('signup.html')
+    return render_template('signup.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -57,13 +69,14 @@ def login():
     error = None    
     if request.method == 'POST':
         db = get_db()
-        cur = db.execute('select username, password from users where username like (?)', [request.form['username']])
-        user, password = cur.fetchall()[0]
-        print(user)
-        if user:
+        user = db.execute('select username, password from users where username like (?)', [request.form['username']]).fetchall()
+        #print(user)
+        if len(user) == 1:
+            username = user[0][0]
+            password = user[0][1]
             if password == request.form['password']:
                 session['logged_in'] = True
-                session['user'] = user
+                session['user'] = username
                 flash('You were logged in')
                 return redirect(url_for('index'))
             else:
@@ -86,7 +99,7 @@ def user(username):
         db = get_db()
         cur = db.cursor()
         cur.execute("select * from users where username == (?)", [username])
-        print(cur.fetchall())
+        # print(cur.fetchall())
     return '<h1>Vc tentou encontrar %s</h1>' %username
 
 if __name__ == '__main__':

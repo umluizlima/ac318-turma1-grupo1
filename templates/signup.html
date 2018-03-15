@@ -17,6 +17,7 @@
         <input type="text" name="lastname" placeholder="Sobrenome" required><br>
         <input type="text" name="username" placeholder="Nome de usuário" required><br>
         <input type="password" name="password" placeholder="Senha" required><br>
+        {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
         <input type="submit" name="submit" value="Cadastre-se">
     </form>
     <p>Tem uma conta? <a href="/login">Faça login</a></p>
