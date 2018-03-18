@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sqlite3
 from flask import flash, Flask, g, render_template, request, redirect, url_for, session
@@ -103,6 +104,6 @@ def user(username):
     return '<h1>Vc tentou encontrar %s</h1>' %username
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',
+    app.run(host='127.0.0.1',
             port=5555,
             debug=True)

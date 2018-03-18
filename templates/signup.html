@@ -1,13 +1,57 @@
 {% extends "layout.html" %}
-{% block body %}
+{% block div %}
     <form method="POST">
-        <input type="email" name="email" placeholder="Email" required><br>
-        <input type="text" name="firstname" placeholder="Nome" required>
-        <input type="text" name="lastname" placeholder="Sobrenome" required><br>
-        <input type="text" name="username" placeholder="Nome de usuário" required><br>
-        <input type="password" name="password" placeholder="Senha" required><br>
+
+        <!-- <input type="email" name="email" placeholder="Email" required><br> -->
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Email</label>
+                <input class="form-control" name="email" id="email" type="email" placeholder="Email" 
+                       required="required" data-validation-required-message="Please enter your name.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div><br>
+
+
+        <div class="control-group">
+            <!-- <input type="text" name="firstname" placeholder="Nome" required> -->
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Nome</label>
+                <input class="form-control" name="firstname" id="firstname" type="text" placeholder="Nome" 
+                        required="required" data-validation-required-message="Digite seu nome.">
+                <p class="help-block text-danger"></p>
+            <!-- <input type="text" name="lastname" placeholder="Sobrenome" required><br> -->
+                <label>Sobrenome</label>
+                <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Sobrenome" 
+                        required="required" data-validation-required-message="Digite seu sobrenome.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+
+        <!-- <input type="text" name="username" placeholder="Nome de usuário" required><br> -->
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Nome de Usuário</label>
+                <input class="form-control" name="username" id="username" type="text" placeholder="Nome de usuário" 
+                        required="required" data-validation-required-message="Digite seu Nome de Usuário.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div><br>
+
+        <!-- <input type="password" name="password" placeholder="Senha" required><br> -->
+        <div class="control-group">
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Senha</label>
+                <input class="form-control" name="password" id="password" type="password" placeholder="Senha" 
+                        required="required" data-validation-required-message="Digite sua Senha.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div><br>
         {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
-        <input type="submit" name="submit" value="Cadastre-se">
+        <!-- <input type="submit" name="submit" value="Cadastre-se"> -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Cadastre-se</button>
+        </div>
     </form>
     <p>Tem uma conta? <a href="/login">Faça login</a></p>
 {% endblock %}
