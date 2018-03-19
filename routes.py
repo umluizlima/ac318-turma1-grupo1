@@ -100,10 +100,16 @@ def user(username):
         db = get_db()
         cur = db.cursor()
         cur.execute("select * from users where username == (?)", [username])
-        # print(cur.fetchall())
+        print(cur.fetchall())
+        # userdata = cur.fetchall()
+        # print userdata
+        # print "USERDATA", userdata
+        # user = userdata[0]
+        # if not userdata:
+        #     return render_template('user_page.html', user=user)
     return '<h1>Vc tentou encontrar %s</h1>' %username
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1',
+    app.run(host='0.0.0.0',
             port=5555,
             debug=True)

@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block div %}
+  <h1> Perfil de {{ user }}!</h1>
+  
+{% for item in emails %}
+  <tr>
+      <h1>{{item[0]}}</h1><br>
+  </tr>
+{% endfor %}
+
+{% for item in phones %}
+  <tr>
+      <h1>{{item[0]}}</h1><br>
+  </tr>
+{% endfor %}
+
+  <a href="/logout">Logout</a>
+{% endblock %}
