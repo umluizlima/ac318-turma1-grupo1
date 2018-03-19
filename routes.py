@@ -109,15 +109,14 @@ def user(username):
         db = get_db()
         cur = db.cursor()
         cur.execute("select * from users where username == (?)", [username])
-        print(cur.fetchall())
-        print username
-        # userdata = cur.fetchall()
-        # print userdata
-        # print "USERDATA", userdata
-        # user = userdata[0]
-        # if not userdata:
-        #     return render_template('user_page.html', user=user)
-    return '<h1>Vc tentou encontrar %s</h1>' %username
+
+        try:
+            user = str(cur.fetchall()[0][1])
+            if user:
+                return render_template('user_page.html', user=user)
+        except IndexError:
+            pass
+    return '<h1>Vc tentou encontrar %s sem sucesso.</h1>' %username
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',
