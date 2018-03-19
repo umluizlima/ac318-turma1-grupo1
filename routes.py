@@ -2,6 +2,7 @@
 import os
 import sqlite3
 from flask import flash, Flask, g, render_template, request, redirect, url_for, session
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -26,6 +27,14 @@ def init_db():
         with app.open_resource('database/schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico',
+                               mimetype='image/vnd.microsoft.icon')
+
 
 @app.teardown_appcontext
 def close_db(error):
@@ -101,6 +110,7 @@ def user(username):
         cur = db.cursor()
         cur.execute("select * from users where username == (?)", [username])
         print(cur.fetchall())
+        print username
         # userdata = cur.fetchall()
         # print userdata
         # print "USERDATA", userdata
