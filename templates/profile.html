@@ -1,8 +1,21 @@
 {% extends "layout.html" %}
 {% block div %}
-    <form method="POST">
+    <h1>{{ user['firstname'] + " " + user['lastname'] }}</h1>
+    <h2>Email:</h2>
+    {% for email in user['emails'] %}
+        <p>{{ email }}: {{ user['emails'][email] }}</p>
+    {% endfor %}
+    <h2>Phone:</h2>
+    {% for phone in user['phones'] %}
+        <p>{{ phone }}: {{ user['phones'][phone] }}</p>
+    {% endfor %}
+    <a href="/download/{{ user['username'] }}" target="/{{ user['username'] }}">Baixar Contato</a>
+    <!-- <form action="/download/{{ user['username'] }}">
+        <input type="submit" value="Baixar Contato" />
+    </form> -->
+    {% if message %}<p class=error>Message: {{ message }}</p>{% endif %}
+    <!-- <form method="POST">
 
-        <!-- <input type="email" name="email" placeholder="Email" required><br> -->
         <div class="control-group">
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Email</label>
@@ -18,13 +31,11 @@
 
 
         <div class="control-group">
-            <!-- <input type="text" name="firstname" placeholder="Nome" required> -->
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Nome</label>
                 <input class="form-control" name="firstname" id="firstname" type="text" placeholder="Nome" 
                         required="required" data-validation-required-message="Digite seu nome.">
                 <p class="help-block text-danger"></p>
-            <!-- <input type="text" name="lastname" placeholder="Sobrenome" required><br> -->
                 <label>Sobrenome</label>
                 <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Sobrenome" 
                         required="required" data-validation-required-message="Digite seu sobrenome.">
@@ -32,7 +43,6 @@
             </div>
         </div>
 
-        <!-- <input type="text" name="username" placeholder="Nome de usuário" required><br> -->
         <div class="control-group">
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Nome de Usuário</label>
@@ -42,7 +52,6 @@
             </div>
         </div><br>
 
-        <!-- <input type="password" name="password" placeholder="Senha" required><br> -->
         <div class="control-group">
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Senha</label>
@@ -52,10 +61,9 @@
             </div>
         </div><br>
         {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
-        <!-- <input type="submit" name="submit" value="Cadastre-se"> -->
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Cadastre-se</button>
         </div>
     </form>
-    <p>Tem uma conta? <a href="/login">Faça login</a></p>
+    <p>Tem uma conta? <a href="/login">Faça login</a></p> //-->
 {% endblock %}

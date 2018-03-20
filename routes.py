@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sqlite3
+import user
 from flask import flash, Flask, g, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
@@ -46,23 +47,29 @@ def signup():
     # Post cadastra os dados dos campos no bd
     error = None
     if request.method == 'POST':
-        db = get_db()
-        user = request.form
-        print(user)
-        if len(db.execute('select username from users where username like (?)', [user['username']]).fetchall()) == 0:
-            db.execute('insert into users (username, password) \
-                                    values (?, ?)', [user['username'], user['password']])
-            userId = db.execute('select id from users where username like (?)', [user['username']]).fetchall()[0][0]
-            db.execute('insert into names (userId, firstname, lastname) \
-                                    values (?, ?, ?)', [userId, user['firstname'], user['lastname']])
-            db.execute('insert into emails (userId, tag, email) \
-                                    values (?, ?, ?)', [userId, 'Main', user['email']])
-            db.commit()
+        if create_user(request.form):
             return redirect(url_for('login'))
         else:
             error = 'Nome de usuário já existe.'
     # Get retorna a página de cadastro
     return render_template('signup.html', error=error)
+
+def create_user(user):
+    db = get_db()
+    if not db.execute('select username from users where username like (?)', [user['username']]).fetchone():
+        db.execute('insert into users (username, password)\
+                    values (?,?)', [user['username'], user['password']])
+        userId = db.execute('select id from users where username like (?)', [user['username']]).fetchone()[0]
+        db.execute('insert into names (userId, firstname, lastname)\
+                values (?, ?, ?)', [userId, user['firstname'], user['lastname']])
+        db.execute('insert into emails (userId, tag, email)\
+                values (?, ?, ?)', [userId, 'Main', user['email']])
+        db.execute('insert into phones (userId, tag, phone)\
+                values (?, ?, ?)', [userId, 'Main', user['phone']])
+        db.commit()
+        return True
+    else:
+        return False
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -70,11 +77,10 @@ def login():
     error = None    
     if request.method == 'POST':
         db = get_db()
-        user = db.execute('select username, password from users where username like (?)', [request.form['username']]).fetchall()
-        #print(user)
-        if len(user) == 1:
-            username = user[0][0]
-            password = user[0][1]
+        user = db.execute('select username, password from users where username like (?)', [request.form['username']]).fetchone()
+        if user:
+            username = user[0]
+            password = user[1]
             if password == request.form['password']:
                 session['logged_in'] = True
                 session['user'] = username
@@ -97,11 +103,46 @@ def logout():
 @app.route('/<username>', methods=['GET', 'POST'])
 def user(username):
     if  request.method == 'GET':
-        db = get_db()
-        cur = db.cursor()
-        cur.execute("select * from users where username == (?)", [username])
-        # print(cur.fetchall())
-    return '<h1>Vc tentou encontrar %s</h1>' %username
+        if session['user'] == username:
+            return render_template('profile.html', user=read_user(username))
+        print(read_user(username))
+        return render_template('profile.html', user=user)
+
+@app.route('/<username>/delete', methods=['POST'])
+def delete_user(username):
+    if  request.method == 'GET':
+        print(read_user(username))
+        return render_template('profile.html', user=user)
+
+@app.route('/<username>/update', methods=['POST'])
+def update_user(username):
+    pass
+
+def read_user(username):
+    db = get_db()
+    cur = db.cursor()
+    cur.execute("select id from users where username == (?)", [username])
+    result = cur.fetchone()
+    if result:
+        user = dict()
+        id = list(result)[0]
+        cur.execute("select firstname, lastname from names where userId == (?)", [id])
+        for row in cur.fetchall():
+            user['firstname'] = row[0]
+            user['lastname'] = row[1]
+        cur.execute("select tag, email from emails where userId == (?)", [id])
+        user['emails'] = dict()
+        for row in cur.fetchall():
+            user['emails'][row[0]] = row[1]
+        cur.execute("select tag, phone from phones where userId == (?)", [id])
+        user['phones'] = dict()
+        for row in cur.fetchall():
+            user['phones'][row[0]] = row[1]
+        close_db(None)
+        return user
+    else:
+        close_db(None)
+        return None
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1',

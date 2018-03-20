@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block div %}
+    <form method="POST">
+        <input type="text" name="firstname" placeholder="Nome" value= {{ user['firstname'] }} required>
+        <input type="text" name="lastname" placeholder="Sobrenome" value= {{ user['lastname'] }} required><br>
+        {% for tag in user['emails'] %}
+            <input type="email" name="email" placeholder="Email" value= {{ user['emails'][tag] }} required><br>
+        {% endfor %}
+        {% for tag in user['phones'] %}
+            <input type="text" name="phone" placeholder="Telefone" value= {{ user['phones'][tag] }} required><br>                    
+        {% endfor %}
+        
+        <button type="submit" name="delete" value="delete" formaction="/delete/{{ user['username'] }}">Deletar Conta</button>
+        <button type="submit" name="update" value="update" formaction="/update/{{ user['username'] }}">Salvar</button>
+    </form>
+    {% if message %}<p class=error>Message: {{ message }}</p>{% endif %}
+{% endblock %}
