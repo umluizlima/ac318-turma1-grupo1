@@ -14,6 +14,10 @@
         <input type="submit" value="Baixar Contato" />
     </form> -->
     {% if message %}<p class=error>Message: {{ message }}</p>{% endif %}
+    {% if session.get('logged_in') %}
+        <a href="/settings">Editar</a>
+        <!-- <button type="submit" name="settings" value="settings" formaction="/settings">Editar</button> -->
+    {% endif %}
     <!-- <form method="POST">
 
         <div class="control-group">
