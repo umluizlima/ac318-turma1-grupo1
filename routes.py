@@ -3,6 +3,7 @@ import os
 import sqlite3
 import user
 from flask import flash, Flask, g, render_template, request, redirect, url_for, session
+from flask import send_from_directory
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -27,6 +28,14 @@ def init_db():
         with app.open_resource('database/schema.sql', mode='r') as f:
             db.cursor().executescript(f.read())
         db.commit()
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico',
+                               mimetype='image/vnd.microsoft.icon')
+
 
 @app.teardown_appcontext
 def close_db(error):
@@ -103,6 +112,7 @@ def logout():
 @app.route('/<username>', methods=['GET', 'POST'])
 def user(username):
     if  request.method == 'GET':
+<<<<<<< HEAD
         if session['user'] == username:
             return render_template('profile.html', user=read_user(username))
         print(read_user(username))
@@ -143,8 +153,21 @@ def read_user(username):
     else:
         close_db(None)
         return None
+=======
+        db = get_db()
+        cur = db.cursor()
+        cur.execute("select * from users where username == (?)", [username])
+
+        try:
+            user = str(cur.fetchall()[0][1])
+            if user:
+                return render_template('user_page.html', user=user)
+        except IndexError:
+            pass
+    return '<h1>Vc tentou encontrar %s sem sucesso.</h1>' %username
+>>>>>>> 1f72bbfb638ac038a817551db18a0d8fd38d2acc
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1',
+    app.run(host='0.0.0.0',
             port=5555,
             debug=True)

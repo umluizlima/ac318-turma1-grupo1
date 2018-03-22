@@ -10,5 +10,5 @@ if not os.path.lexists(os.path.join('database', 'contacts.db')):
     db.close()
 
 app.run(host='0.0.0.0',
-    port=5000,
+    port=5555,
     debug=True)
