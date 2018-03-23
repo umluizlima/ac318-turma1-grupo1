@@ -9,9 +9,6 @@
         {% for tag in user['phones'] %}
             <input type="text" name="phone" placeholder="Telefone" value= {{ user['phones'][tag] }} required><br>                    
         {% endfor %}
-        
-        <!-- <button type="submit" name="delete" value="delete" formaction="/delete/{{ user['username'] }}">Deletar Conta</button>
-        <button type="submit" name="update" value="update" formaction="/update/{{ user['username'] }}">Salvar</button> -->
         <button type="submit" name="delete" value="delete">Deletar Conta</button>
         <button type="submit" name="update" value="update">Salvar</button>
     </form>

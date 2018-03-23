@@ -9,65 +9,11 @@
     {% for phone in user['phones'] %}
         <p>{{ phone }}: {{ user['phones'][phone] }}</p>
     {% endfor %}
-    <a href="/download/{{ user['username'] }}" target="/{{ user['username'] }}">Baixar Contato</a>
-    <!-- <form action="/download/{{ user['username'] }}">
-        <input type="submit" value="Baixar Contato" />
-    </form> -->
-    {% if message %}<p class=error>Message: {{ message }}</p>{% endif %}
-    {% if session.get('logged_in') %}
-        <a href="/settings">Editar</a>
-        <!-- <button type="submit" name="settings" value="settings" formaction="/settings">Editar</button> -->
+        <a href="/download/{{ user['username'] }}" target="/{{ user['username'] }}">Baixar Contato</a>
+    {% if message %}
+        <p class=error>Message: {{ message }}</p>
     {% endif %}
-    <!-- <form method="POST">
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Email</label>
-                <input class="form-control" name="email" id="email" type="email" placeholder="Email" 
-                       required="required" data-validation-required-message="Please enter your name.">
-                <p class="help-block text-danger"></p>
-                <label>Telefone</label>
-                <input class="form-control" name="phone" id="phone" type="text" placeholder="Telefone" 
-                       required="required" data-validation-required-message="Please enter your phone number.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div><br>
-
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Nome</label>
-                <input class="form-control" name="firstname" id="firstname" type="text" placeholder="Nome" 
-                        required="required" data-validation-required-message="Digite seu nome.">
-                <p class="help-block text-danger"></p>
-                <label>Sobrenome</label>
-                <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Sobrenome" 
-                        required="required" data-validation-required-message="Digite seu sobrenome.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Nome de Usuário</label>
-                <input class="form-control" name="username" id="username" type="text" placeholder="Nome de usuário" 
-                        required="required" data-validation-required-message="Digite seu Nome de Usuário.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div><br>
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Senha</label>
-                <input class="form-control" name="password" id="password" type="password" placeholder="Senha" 
-                        required="required" data-validation-required-message="Digite sua Senha.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div><br>
-        {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Cadastre-se</button>
-        </div>
-    </form>
-    <p>Tem uma conta? <a href="/login">Faça login</a></p> //-->
+    {% if session.get('logged_in') == user['id'] %}
+        <a href="/settings">Editar</a>
+    {% endif %}
 {% endblock %}
