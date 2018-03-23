@@ -37,6 +37,15 @@ def read_by_id(id):
     print("read_by_id()")
     return read(db['users'].find_one(id=id)['username'])
 
+def read_login(username, password):
+    login = {'id' : None, 'password': None}
+    user = db['users'].find_one(username=username)
+    if user:
+        login['id'] = user['id']
+        if password == user['password']:
+            login['password'] = True
+    return login
+
 def update(id, data):
     print("update(data)")
     # user = read_logged_user()

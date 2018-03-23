@@ -32,10 +32,10 @@ def login():
     error = None
     if request.method == "POST":
         data = request.form.to_dict()
-        usr = user.read(data['username'])
-        if usr:
-            if usr['password'] == data['password']:
-                session['logged_in'] = usr['id']
+        login = user.read_login(data['username'], data['password'])
+        if login['id']:
+            if login['password']:
+                session['logged_in'] = login['id']
                 return redirect(url_for('index'))
             else:
                 error = "Senha incorreta."
@@ -60,7 +60,6 @@ def settings():
                 logout()
             if 'update' in data:
                 user.update(id, data)
-            return redirect(url_for('settings'))
     return redirect(url_for('index'))
 
 @app.route("/<username>")
