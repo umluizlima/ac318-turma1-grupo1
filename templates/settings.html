@@ -1,16 +1,47 @@
 {% extends "layout.html" %}
 {% block div %}
     <form method="POST">
-        <input type="text" name="firstname" placeholder="Nome" value= {{ user['firstname'] }} required>
-        <input type="text" name="lastname" placeholder="Sobrenome" value= {{ user['lastname'] }} required><br>
-        {% for tag in user['emails'] %}
-            <input type="email" name="email" placeholder="Email" value= {{ user['emails'][tag] }} required><br>
-        {% endfor %}
-        {% for tag in user['phones'] %}
-            <input type="text" name="phone" placeholder="Telefone" value= {{ user['phones'][tag] }} required><br>                    
-        {% endfor %}
-        <button type="submit" name="delete" value="delete">Deletar Conta</button>
-        <button type="submit" name="update" value="update">Salvar</button>
+
+
+        <div class="control-group">
+            <!-- <input type="text" name="firstname" placeholder="Nome" required> -->
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Nome</label>
+                <input class="form-control" name="firstname" id="firstname" type="text" placeholder="Nome" 
+                    value= {{ user['firstname'] }} required="required" data-validation-required-message="Digite seu nome.">
+                <p class="help-block text-danger"></p>
+            <!-- <input type="text" name="lastname" placeholder="Sobrenome" required><br> -->
+                <label>Sobrenome</label>
+                <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Sobrenome" 
+                    value= {{ user['lastname'] }} required="required" data-validation-required-message="Digite seu sobrenome.">
+                <p class="help-block text-danger"></p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            {% for tag in user['emails'] %}
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Email</label>
+                <input class="form-control" name="email" id="email" type="email" placeholder="Email" 
+                    value= {{ user['emails'][tag] }}  required="required" data-validation-required-message="Please enter your name.">
+                <p class="help-block text-danger"></p>
+            </div>
+            {% endfor %}
+        </div><br>
+
+        <div class="control-group">
+            {% for tag in user['phones'] %}
+            <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <label>Telefone</label>
+                <input class="form-control" name="phone" id="phone" type="text" placeholder="Telefone" 
+                    value= {{ user['phones'][tag] }} required="required" data-validation-required-message="Please enter your phone number.">
+                <p class="help-block text-danger"></p>
+            </div>
+            {% endfor %}
+        </div><br>
+
+        <button type="submit" class="btn btn-danger btn-xl"  name="delete" value="delete">Deletar Conta</button>
+        <button type="submit" class="btn btn-primary btn-xl" name="update" value="update">Salvar</button>
     </form>
     {% if message %}<p class=error>Message: {{ message }}</p>{% endif %}
 {% endblock %}
