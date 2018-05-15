@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, render_template
+    Blueprint, render_template, redirect, url_for, session
 )
 
 from .auth import login_required
@@ -11,7 +11,8 @@ bp = Blueprint('main', __name__)
 @bp.route('/')
 @login_required
 def index():
-    return render_template('main/index.html')
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    return redirect(url_for('user.profile', username=user.username))
 
 
 @bp.route("/db")
