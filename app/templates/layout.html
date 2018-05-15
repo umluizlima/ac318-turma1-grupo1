@@ -9,6 +9,7 @@
     <meta name="description" content="Webapp for contact exchanging">
     <meta name="author" content="Luiz Lima, Rodrigo Rufino">
 
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}"/>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -93,6 +94,7 @@
 
     <!-- Custom scripts for this template -->
     <script src="/static/js/freelancer.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
 
   </body>
 
