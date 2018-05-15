@@ -7,34 +7,36 @@
             <!-- <input type="text" name="firstname" placeholder="Nome" required> -->
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
                 <label>Nome</label>
-                <input class="form-control" name="firstname" id="firstname" type="text" placeholder="Nome" 
-                    value= {{ user['firstname'] }} required="required" data-validation-required-message="Digite seu nome.">
+                <input class="form-control" name="first_name" id="firstname" type="text" placeholder="Nome"
+                    value="{{ user['first_name'] }}" required="required" data-validation-required-message="Digite seu nome.">
                 <p class="help-block text-danger"></p>
             <!-- <input type="text" name="lastname" placeholder="Sobrenome" required><br> -->
                 <label>Sobrenome</label>
-                <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Sobrenome" 
-                    value= {{ user['lastname'] }} required="required" data-validation-required-message="Digite seu sobrenome.">
+                <input class="form-control" name="last_name" id="lastname" type="text" placeholder="Sobrenome"
+                    value="{{ user['last_name'] }}" required="required" data-validation-required-message="Digite seu sobrenome.">
                 <p class="help-block text-danger"></p>
             </div>
         </div>
 
         <div class="control-group">
-            {% for tag in user['emails'] %}
+            {% for email in user['emails'] %}
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <input type="number" name="email_id" value="{{ email['id'] }}" hidden>
                 <label>Email</label>
-                <input class="form-control" name="email" id="email" type="email" placeholder="Email" 
-                    value= {{ user['emails'][tag] }}  required="required" data-validation-required-message="Please enter your name.">
+                <input class="form-control" name="email" id="email" type="email" placeholder="Email"
+                    value="{{ email['email'] }}"  required="required" data-validation-required-message="Please enter your name.">
                 <p class="help-block text-danger"></p>
             </div>
             {% endfor %}
         </div><br>
 
         <div class="control-group">
-            {% for tag in user['phones'] %}
+            {% for phone in user['telephones'] %}
             <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                <input type="number" name="telephone_id" value="{{ phone['id'] }}" hidden>
                 <label>Telefone</label>
-                <input class="form-control" name="phone" id="phone" type="text" placeholder="Telefone" 
-                    value= {{ user['phones'][tag] }} required="required" data-validation-required-message="Please enter your phone number.">
+                <input class="form-control" name="telephone" id="telephone" type="text" placeholder="Telefone"
+                    value="{{ phone['telephone'] }}" required="required" data-validation-required-message="Please enter your phone number.">
                 <p class="help-block text-danger"></p>
             </div>
             {% endfor %}

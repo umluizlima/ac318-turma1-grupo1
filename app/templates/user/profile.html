@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 {% block div %}
-    <h1>{{ user['firstname'] + " " + user['lastname'] }}</h1>
+    <h1>{{ user['full_name'] }}</h1>
     <h2>Email:</h2>
     {% for email in user['emails'] %}
-        <p>{{ email }}: {{ user['emails'][email] }}</p>
+        <p>{{ email['tag'] }}: {{ email['email'] }}</p>
     {% endfor %}
     <h2>Phone:</h2>
-    {% for phone in user['phones'] %}
-        <p>{{ phone }}: {{ user['phones'][phone] }}</p>
+    {% for phone in user['telephones'] %}
+        <p>{{ phone['tag'] }}: {{ phone['telephone'] }}</p>
     {% endfor %}
         <a href="/download/{{ user['username'] }}" target="/{{ user['username'] }}">Baixar Contato</a>
     {% if message %}
         <p class=error>Message: {{ message }}</p>
     {% endif %}
-    {% if session.get('logged_in') == user['id'] %}
+    {% if session.get('user_id') == user['id'] %}
         <a href="/settings">Editar</a>
     {% endif %}
 {% endblock %}
