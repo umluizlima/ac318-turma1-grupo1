@@ -9,6 +9,8 @@ flask-sqlalchemy = "*"
 vobject = "*"
 flask-migrate = "*"
 python-dotenv = "*"
+gunicorn = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 
