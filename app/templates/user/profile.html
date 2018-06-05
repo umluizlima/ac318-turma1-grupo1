@@ -1,6 +1,13 @@
 {% extends "layout.html" %}
-{% block div %}
+{% block main %}
+<article>
+  <header>
     <h1>{{ user['full_name'] }}</h1>
+    {% if session.get('user_id') == user['id'] %}
+        <a href="{{ url_for('user.settings') }}"><button>Editar</button></a>
+    {% endif %}
+  </header>
+  <main>
     <h2>Email:</h2>
     {% for email in user['emails'] %}
         <p>{{ email['tag'] }}: {{ email['email'] }}</p>
@@ -9,11 +16,12 @@
     {% for phone in user['telephones'] %}
         <p>{{ phone['tag'] }}: {{ phone['telephone'] }}</p>
     {% endfor %}
-        <a href="/download/{{ user['username'] }}" target="/{{ user['username'] }}">Baixar Contato</a>
     {% if message %}
         <p class=error>Message: {{ message }}</p>
     {% endif %}
-    {% if session.get('user_id') == user['id'] %}
-        <a href="/settings">Editar</a>
-    {% endif %}
+  </main>
+  <footer>
+    <a href="/download/{{ user['username'] }}" target="/{{ user['username'] }}"><button>Baixar Contato</button></a>
+  </footer>
+</article>
 {% endblock %}

@@ -1,101 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block body %}
+<header>
+  <h1><a href="{{ url_for('main.index') }}">AC318-T1G1</a></h1>
+  <nav>
+    {% if session.get('user_id') %}
+      <a href="{{ url_for('auth.logout') }}"><button>Sair</buton></a>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}"><button>Entrar</button></a>
+    {% endif %}
+  </nav>
+</header>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<main>
+  {% block main %}{% endblock %}
+</main>
 
-    <title>AC318-T1G1</title>
-    <meta name="description" content="Webapp for contact exchanging">
-    <meta name="author" content="Luiz Lima, Rodrigo Rufino">
-
-    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}"/>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Plugin CSS -->
-    <link href="/static/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
-
-    <!-- Custom styles for this template -->
-    <link href="/static/css/freelancer.min.css" rel="stylesheet">
-
-  </head>
-
-  <body id="page-top">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">AC318-T1G1</a>
-        <a href="/">Home</a>
-        {% if session.get('user_id') %}
-          <a href="/settings">Settings</a>
-          <a href="/logout">Logout</a>
-        {% else %}
-          <a href="/login">Login</a>
-          <a href="/signup">Sign Up</a>
-        {% endif %}
-        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fa fa-bars"></i>
-        </button>
-      </div>
-    </nav>
-
-    <!-- Header -->
-    <header class="masthead bg-primary text-white text-center">
-      <div class="container">
-        <!-- <img class="img-fluid mb-5 d-block mx-auto" src="/static/img/profile.png" alt=""> -->
-        <h1 class="text-uppercase mb-0">AC318-T1G1</h1>
-        <hr class="star-light">
-      </div>
-    </header>
-
-    <!-- Portfolio Grid Section -->
-    <section class="page" id="page">
-      <div class="container">
-          <div class=pager>
-              <div class=metanav>
-              {% block div %}{% endblock %}
-            </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="copyright py-4 text-center text-white">
-      <div class="container">
-        <small>AC318-T1G1&copy; Luiz Lima e Rodrigo Rufino</small>
-      </div>
-    </div>
-
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-to-top d-lg-none position-fixed ">
-      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
-        <i class="fa fa-chevron-up"></i>
-      </a>
-    </div>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="/static/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="/static/js/jqBootstrapValidation.js"></script>
-    <script src="/static/js/contact_me.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="/static/js/freelancer.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-
-  </body>
-
-</html>
+<footer>
+  <p>disponível no <a href="https://github.com/umluizlima/ac318-turma1-grupo1" target="_blank" rel="noopener">GitHub</a></p>
+</footer>
+{% endblock %}

@@ -1,29 +1,22 @@
 {% extends "layout.html" %}
-{% block div %}
+{% block main %}
+<article>
+  <header>
+    <h2>Entrar</h2>
+  </header>
+  <main>
     <form method="POST">
-        <!-- <input type="text" name="username" placeholder="Nome de usuário" required><br> -->
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Username</label>
-                <input class="form-control" name="username" id="username" type="text" placeholder="Nome de Usuário" 
-                        required="required" data-validation-required-message="Digite seu nome de Usuário.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div>
-        <!-- <input type="password" name="password" placeholder="Senha" required><br> -->
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Password</label>
-                <input class="form-control" name="password" id="password" type="password" placeholder="Senha" 
-                        required="required" data-validation-required-message="Digite sua Senha.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div>
-        {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
-        <!-- <input type="submit" name="submit" value="Entrar"> -->
-        <div class="form-group">
-            <button type="submit" name="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Entrar</button>
-        </div>
+      <label for="username">Nome de usuário</label>
+      <input type="text" name="username" id="username" autofocus required>
+      <label for="password">Senha</label>
+      <input type="password" name="password" id="password" required>
+      {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
+      <!-- <input type="submit" name="submit" value="Entrar"> -->
+      <button type="submit" name="submit">Entrar</button>
     </form>
+  </main>
+  <footer>
     <p>Não tem uma conta? <a href="/signup">Cadastre-se</a></p>
+  </footer>
+</article>
 {% endblock %}

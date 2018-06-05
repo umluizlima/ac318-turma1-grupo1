@@ -1,61 +1,34 @@
 {% extends "layout.html" %}
-{% block div %}
+{% block main %}
+<article>
+  <header>
+    <h2>Cadastre-se</h2>
+  </header>
+  <main>
     <form method="POST">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" autofocus required>
 
-        <!-- <input type="email" name="email" placeholder="Email" required><br> -->
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Email</label>
-                <input class="form-control" name="email" id="email" type="email" placeholder="Email"
-                       required="required" data-validation-required-message="Please enter your name.">
-                <p class="help-block text-danger"></p>
-                <label>Telefone</label>
-                <input class="form-control" name="telephone" id="telephone" type="text" placeholder="Telefone" 
-                       required="required" data-validation-required-message="Please enter your phone number.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div><br>
+      <label for="telephone">Telefone</label>
+      <input type="text" name="telephone" id="telephone" required>
 
+      <label for="firstname">Nome</label>
+      <input type="text" name="firstname" id="firstname" type="text" required>
 
-        <div class="control-group">
-            <!-- <input type="text" name="firstname" placeholder="Nome" required> -->
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Nome</label>
-                <input class="form-control" name="firstname" id="firstname" type="text" placeholder="Nome"
-                        required="required" data-validation-required-message="Digite seu nome.">
-                <p class="help-block text-danger"></p>
-            <!-- <input type="text" name="lastname" placeholder="Sobrenome" required><br> -->
-                <label>Sobrenome</label>
-                <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Sobrenome"
-                        required="required" data-validation-required-message="Digite seu sobrenome.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div>
+      <label for="lastname">Sobrenome</label>
+      <input type="text" name="lastname" id="lastname" required>
 
-        <!-- <input type="text" name="username" placeholder="Nome de usuário" required><br> -->
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Nome de Usuário</label>
-                <input class="form-control" name="username" id="username" type="text" placeholder="Nome de usuário"
-                        required="required" data-validation-required-message="Digite seu Nome de Usuário.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div><br>
+      <label for="username">Nome de Usuário</label>
+      <input type="text" name="username" id="username" required="required">
 
-        <!-- <input type="password" name="password" placeholder="Senha" required><br> -->
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Senha</label>
-                <input class="form-control" name="password" id="password" type="password" placeholder="Senha"
-                        required="required" data-validation-required-message="Digite sua Senha.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div><br>
-        {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
-        <!-- <input type="submit" name="submit" value="Cadastre-se"> -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Cadastre-se</button>
-        </div>
+      <label for="password">Senha</label>
+      <input type="password" name="password" id="password" required>
+      {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
+      <button type="submit" name="submit">Cadastre-se</button>
     </form>
+  </main>
+  <footer>
     <p>Tem uma conta? <a href="/login">Faça login</a></p>
+  </footer>
+</article>
 {% endblock %}

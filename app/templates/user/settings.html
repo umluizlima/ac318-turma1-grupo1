@@ -1,49 +1,38 @@
 {% extends "layout.html" %}
-{% block div %}
+{% block main %}
+<article>
+  <header>
+    <h2>Configurações</h2>
+  </header>
+  <main>
     <form method="POST">
+      <label for="firstname">Nome</label>
+      <input type="text" name="first_name" id="firstname" value="{{ user['first_name'] }}" required>
 
+      <label for="lastname">Sobrenome</label>
+      <input type="text" name="last_name" id="lastname" value="{{ user['last_name'] }}" required>
 
-        <div class="control-group">
-            <!-- <input type="text" name="firstname" placeholder="Nome" required> -->
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Nome</label>
-                <input class="form-control" name="first_name" id="firstname" type="text" placeholder="Nome"
-                    value="{{ user['first_name'] }}" required="required" data-validation-required-message="Digite seu nome.">
-                <p class="help-block text-danger"></p>
-            <!-- <input type="text" name="lastname" placeholder="Sobrenome" required><br> -->
-                <label>Sobrenome</label>
-                <input class="form-control" name="last_name" id="lastname" type="text" placeholder="Sobrenome"
-                    value="{{ user['last_name'] }}" required="required" data-validation-required-message="Digite seu sobrenome.">
-                <p class="help-block text-danger"></p>
-            </div>
-        </div>
+      {% for email in user['emails'] %}
+        <input type="number" name="email_id" value="{{ email['id'] }}" hidden>
+        <label>Email</label>
+        <input class="form-control" name="email" id="email" type="email" placeholder="Email"
+        value="{{ email['email'] }}"  required="required" data-validation-required-message="Please enter your name.">
+      {% endfor %}
 
-        <div class="control-group">
-            {% for email in user['emails'] %}
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <input type="number" name="email_id" value="{{ email['id'] }}" hidden>
-                <label>Email</label>
-                <input class="form-control" name="email" id="email" type="email" placeholder="Email"
-                    value="{{ email['email'] }}"  required="required" data-validation-required-message="Please enter your name.">
-                <p class="help-block text-danger"></p>
-            </div>
-            {% endfor %}
-        </div><br>
+      {% for phone in user['telephones'] %}
+        <input type="number" name="telephone_id" value="{{ phone['id'] }}" hidden>
+        <label>Telefone</label>
+        <input class="form-control" name="telephone" id="telephone" type="text" placeholder="Telefone"
+        value="{{ phone['telephone'] }}" required="required" data-validation-required-message="Please enter your phone number.">
+      {% endfor %}
 
-        <div class="control-group">
-            {% for phone in user['telephones'] %}
-            <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <input type="number" name="telephone_id" value="{{ phone['id'] }}" hidden>
-                <label>Telefone</label>
-                <input class="form-control" name="telephone" id="telephone" type="text" placeholder="Telefone"
-                    value="{{ phone['telephone'] }}" required="required" data-validation-required-message="Please enter your phone number.">
-                <p class="help-block text-danger"></p>
-            </div>
-            {% endfor %}
-        </div><br>
-
-        <button type="submit" class="btn btn-danger btn-xl"  name="delete" value="delete">Deletar Conta</button>
-        <button type="submit" class="btn btn-primary btn-xl" name="update" value="update">Salvar</button>
+      <button type="submit" name="delete" value="delete">Deletar Conta</button>
+      <button type="submit" name="update" value="update">Salvar</button>
     </form>
     {% if message %}<p class=error>Message: {{ message }}</p>{% endif %}
+  </main>
+  <footer>
+
+  </footer>
+</article>
 {% endblock %}
