@@ -12,7 +12,8 @@ bp = Blueprint('user', __name__, url_prefix='')
 def profile(username):
     user = User.query.filter_by(username=username).first()
     if user:
-        return render_template('user/profile.html', user=user.to_dict())
+        return render_template('user/profile.html', user=user.to_dict(),
+                               title='Perfil')
     abort(404)
 
 
@@ -34,7 +35,8 @@ def settings():
             telephone = Telephone.query.filter_by(id=data['telephone_id']).first()
             telephone.telephone = data['telephone']
             db.session.commit()
-    return render_template('user/settings.html', user=user.to_dict())
+    return render_template('user/settings.html', user=user.to_dict(),
+                           title='Configuração')
 
 
 @bp.route("/download/<username>")

@@ -40,7 +40,7 @@ def signup():
 
         flash(error)
 
-    return render_template('auth/signup.html', title='Cadastrar')
+    return render_template('auth/signup.html', title='Cadastrar-se')
 
 
 @bp.route('/login', methods=('GET', 'POST'))

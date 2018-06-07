@@ -1,11 +1,11 @@
 from flask import (
-    Blueprint, render_template, redirect, url_for, session
+    Blueprint, redirect, url_for, session, send_from_directory, render_template
 )
 
 from .auth import login_required
 from app.model import User
 
-bp = Blueprint('main', __name__)
+bp = Blueprint('main', __name__, url_prefix='')
 
 
 @bp.route('/')
@@ -15,6 +15,11 @@ def index():
     return redirect(url_for('user.profile', username=user.username))
 
 
-@bp.route("/db")
-def database():
-    return render_template('db.html', users=User.query.all())
+@bp.route('/manifest.json')
+def manifest():
+    return send_from_directory('static', 'manifest.json')
+
+
+@bp.route('/sw.js')
+def service_worker():
+    return send_from_directory('static', 'sw.js')

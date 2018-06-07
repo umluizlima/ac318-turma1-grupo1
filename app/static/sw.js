@@ -9,6 +9,7 @@ if (workbox) {
 }
 
 workbox.routing.registerRoute(
+  '/',
   '/login',
   '/signup',
   workbox.strategies.staleWhileRevalidate({
