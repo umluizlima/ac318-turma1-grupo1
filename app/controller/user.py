@@ -1,5 +1,6 @@
 from flask import (
-    Blueprint, render_template, abort, send_from_directory, request, session, jsonify, current_app
+    Blueprint, render_template, abort, send_from_directory, request, session,
+    jsonify, current_app, redirect, url_for
 )
 
 from app.model import db, User, Email, Telephone
@@ -35,6 +36,7 @@ def settings():
             telephone = Telephone.query.filter_by(id=data['telephone_id']).first()
             telephone.telephone = data['telephone']
             db.session.commit()
+        return redirect(url_for('main.index'))
     return render_template('user/settings.html', user=user.to_dict(),
                            title='Configuração')
 

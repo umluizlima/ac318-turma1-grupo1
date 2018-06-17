@@ -29,7 +29,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from app.controller import main, auth, user
+    from app.controller import pwa, main, auth, user
+    app.register_blueprint(pwa.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(user.bp)
     app.register_blueprint(main.bp)

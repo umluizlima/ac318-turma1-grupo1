@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, redirect, url_for, session, send_from_directory, render_template
+    Blueprint, redirect, url_for, session
 )
 
 from .auth import login_required
@@ -13,13 +13,3 @@ bp = Blueprint('main', __name__, url_prefix='')
 def index():
     user = User.query.filter_by(id=session.get('user_id')).first()
     return redirect(url_for('user.profile', username=user.username))
-
-
-@bp.route('/manifest.json')
-def manifest():
-    return send_from_directory('static', 'manifest.json')
-
-
-@bp.route('/sw.js')
-def service_worker():
-    return send_from_directory('static', 'sw.js')
