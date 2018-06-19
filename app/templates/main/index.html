@@ -1,4 +1,24 @@
 {% extends "layout.html" %}
 {% block main %}
-  <h1>Hello</h1>
+<article>
+  <header>
+    <h2>Encontre um contato</h2>
+  </header>
+  <main>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+    <form method="POST">
+      <label for="username">Nome de usuário</label>
+      <input type="text" name="username" id="username" required>
+      <button type="submit" name="submit">Pesquisar</button>
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('user.settings') }}"><button>Meu perfil</buton></a>
+      {% endif %}
+    </form>
+  </main>
+  <footer>
+
+  </footer>
+</article>
 {% endblock %}

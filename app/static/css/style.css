@@ -86,7 +86,7 @@ a {
   color: var(--bg-text-color);
 }
 
-main a {
+footer a {
   color: var(--link-primary-color);
 }
 
@@ -163,6 +163,11 @@ button:hover,
   background: var(--interface-text-color);
   color: var(--interface-color);
   border: 1px solid var(--interface-color);
+}
+
+.flash {
+  font-size: 0.8rem;
+  color: red;
 }
 
 @media screen and (min-width: 800px) {

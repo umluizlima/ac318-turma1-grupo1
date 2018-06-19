@@ -5,6 +5,9 @@
     <h2>Cadastre-se</h2>
   </header>
   <main>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
     <form method="POST">
       <label for="email">Email</label>
       <input type="email" name="email" id="email" autofocus required>
@@ -23,7 +26,6 @@
 
       <label for="password">Senha</label>
       <input type="password" name="password" id="password" required>
-      {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
       <button type="submit" name="submit">Cadastre-se</button>
     </form>
   </main>

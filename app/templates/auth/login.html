@@ -5,13 +5,14 @@
     <h2>Entrar</h2>
   </header>
   <main>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
     <form method="POST">
       <label for="username">Nome de usuário</label>
       <input type="text" name="username" id="username" autofocus required>
       <label for="password">Senha</label>
       <input type="password" name="password" id="password" required>
-      {% if error %}<p class=error>Erro: {{ error }}</p>{% endif %}
-      <!-- <input type="submit" name="submit" value="Entrar"> -->
       <button type="submit" name="submit">Entrar</button>
     </form>
   </main>

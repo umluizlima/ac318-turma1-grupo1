@@ -1,15 +1,17 @@
 from flask import (
-    Blueprint, redirect, url_for, session
+    Blueprint, redirect, url_for, session, render_template, request, flash
 )
 
-from .auth import login_required
 from app.model import User
 
 bp = Blueprint('main', __name__, url_prefix='')
 
 
-@bp.route('/')
-@login_required
+@bp.route('/', methods=["GET", "POST"])
 def index():
-    user = User.query.filter_by(id=session.get('user_id')).first()
-    return redirect(url_for('user.profile', username=user.username))
+    if request.method == "POST":
+        data = request.form.to_dict()
+        if 'username' in data.keys():
+            return redirect(url_for('user.profile', username=data['username']))
+        flash('Nome de usuário inválido.')
+    return render_template('main/index.html')

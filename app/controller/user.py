@@ -1,6 +1,6 @@
 from flask import (
     Blueprint, render_template, abort, send_from_directory, request, session,
-    jsonify, current_app, redirect, url_for
+    jsonify, current_app, redirect, url_for, flash
 )
 
 from app.model import db, User, Email, Telephone
@@ -15,7 +15,8 @@ def profile(username):
     if user:
         return render_template('user/profile.html', user=user.to_dict(),
                                title='Perfil')
-    abort(404)
+    flash('Nome de usuário inválido.')
+    return redirect(url_for('main.index'))
 
 
 @bp.route("/settings", methods=["GET", "POST"])
@@ -36,7 +37,7 @@ def settings():
             telephone = Telephone.query.filter_by(id=data['telephone_id']).first()
             telephone.telephone = data['telephone']
             db.session.commit()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('user.profile', username=user.username))
     return render_template('user/settings.html', user=user.to_dict(),
                            title='Configuração')
 
