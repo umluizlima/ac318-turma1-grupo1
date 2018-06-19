@@ -14,4 +14,4 @@ def index():
         if 'username' in data.keys():
             return redirect(url_for('user.profile', username=data['username']))
         flash('Nome de usuário inválido.')
-    return render_template('main/index.html')
+    return render_template('main/index.html', title="Início")
